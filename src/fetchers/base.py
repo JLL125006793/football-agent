@@ -120,7 +120,6 @@ class BaseFetcher:
                 attempts.append(self._attempt(url, False, f"{FAIL_STRUCTURE}：{exc}", raw_path, 0))
         return _dedupe_matches(matches), attempts
 
-
     def _get_url(self, url: str) -> tuple[str, str, int]:
         if self.requests is not None:
             response = self.requests.get(url, headers=self.headers, timeout=self.timeout)
@@ -147,7 +146,9 @@ class BaseFetcher:
         for script_text in _extract_script_text(html):
             for payload in _extract_json_objects(script_text):
                 matches.extend(_extract_matches_from_payload(payload, query_date))
-        return _dedupe_matches(matches)
+        if matches:
+            return _dedupe_matches(matches)
+        return _extract_matches_from_text(html, query_date)
 
     def _attempt(self, url: str, success: bool, reason: str, raw_path: Path | None, matches_count: int) -> FetchAttempt:
         return FetchAttempt(
@@ -286,6 +287,14 @@ def _extract_handicap(raw: dict[str, Any]) -> float | None:
     return _to_float(value)
 
 
+def _find_handicap(text: str) -> float | None:
+    labelled = re.search(r"(?:让球|让)\s*([+-]?\d+(?:\.\d+)?)", text)
+    if labelled:
+        return _to_float(labelled.group(1))
+    signed = re.search(r"(?<![\d.])([+-]\d+(?:\.\d+)?)(?![\d.])", text)
+    return _to_float(signed.group(1)) if signed else None
+
+
 def _extract_matches_with_bs4(html: str, query_date: str) -> list[dict[str, Any]]:
     if not importlib.util.find_spec("bs4"):
         return []
@@ -305,6 +314,14 @@ def _extract_matches_from_tables(html: str, query_date: str) -> list[dict[str, A
         [re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", cell)).strip() for cell in re.findall(r"<t[dh][^>]*>(.*?)</t[dh]>", row, flags=re.IGNORECASE | re.DOTALL)]
         for row in rows
     ]
+    return _extract_matches_from_cell_rows(cell_rows, query_date)
+
+
+def _extract_matches_from_text(text: str, query_date: str) -> list[dict[str, Any]]:
+    plain = re.sub(r"<script[^>]*>.*?</script>", " ", text, flags=re.IGNORECASE | re.DOTALL)
+    plain = re.sub(r"<style[^>]*>.*?</style>", " ", plain, flags=re.IGNORECASE | re.DOTALL)
+    plain = re.sub(r"<[^>]+>", " ", plain)
+    cell_rows = [line.split() for line in plain.splitlines() if "VS" in line.upper()]
     return _extract_matches_from_cell_rows(cell_rows, query_date)
 
 
@@ -330,7 +347,7 @@ def _extract_matches_from_cell_rows(cell_rows: list[list[str]], query_date: str)
                 "home_team": left_tokens[-1] if left_tokens else "无法确认",
                 "away_team": right_tokens[0] if right_tokens else "无法确认",
                 "spf_odds": {"win": odds[0], "draw": odds[1], "loss": odds[2]},
-                "handicap": _extract_handicap({"handicap": text}),
+                "handicap": _find_handicap(text),
                 "rqspf_odds": {"win": odds[3], "draw": odds[4], "loss": odds[5]},
             }
         )
