@@ -1,0 +1,24 @@
+{
+  "data": {
+    "matches": [
+      {
+        "matchNum": "周六002",
+        "matchTime": "19:30",
+        "leagueName": "西甲",
+        "homeTeam": "皇家马德里",
+        "awayTeam": "巴塞罗那",
+        "spf": {
+          "win": "1.75",
+          "draw": "3.60",
+          "loss": "4.50"
+        },
+        "rq": "-1",
+        "rqspf": {
+          "win": "3.10",
+          "draw": "3.40",
+          "loss": "2.00"
+        }
+      }
+    ]
+  }
+}

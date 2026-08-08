@@ -1,0 +1,86 @@
+[
+  {
+    "match_id": "示例001",
+    "start_time": "无法确认",
+    "league": "示例联赛（请替换为真实录入）",
+    "home_team": "主队A（示例占位）",
+    "away_team": "客队A（示例占位）",
+    "spf_odds": {
+      "win": null,
+      "draw": null,
+      "loss": null
+    },
+    "handicap": null,
+    "rqspf_odds": {
+      "win": null,
+      "draw": null,
+      "loss": null
+    },
+    "recent_home_goals_for": null,
+    "recent_home_goals_against": null,
+    "recent_away_goals_for": null,
+    "recent_away_goals_against": null,
+    "home_xg": null,
+    "away_xg": null,
+    "home_xga": null,
+    "away_xga": null,
+    "injury_note": "无法确认",
+    "motivation_note": "无法确认",
+    "lineup_confirmed": false,
+    "official_data_confirmed": false,
+    "odds_complete": false,
+    "odds_movement_note": null,
+    "data_source": "手动录入示例",
+    "fetch_status": "手动录入",
+    "missing_fields": [
+      "spf_odds",
+      "handicap",
+      "rqspf_odds"
+    ],
+    "odds_conflict_note": "无",
+    "lineup_note": "无法确认",
+    "weather_note": "无法确认"
+  },
+  {
+    "match_id": "示例002",
+    "start_time": "无法确认",
+    "league": "示例联赛（请替换为真实录入）",
+    "home_team": "主队B（示例占位）",
+    "away_team": "客队B（示例占位）",
+    "spf_odds": {
+      "win": null,
+      "draw": null,
+      "loss": null
+    },
+    "handicap": null,
+    "rqspf_odds": {
+      "win": null,
+      "draw": null,
+      "loss": null
+    },
+    "recent_home_goals_for": null,
+    "recent_home_goals_against": null,
+    "recent_away_goals_for": null,
+    "recent_away_goals_against": null,
+    "home_xg": null,
+    "away_xg": null,
+    "home_xga": null,
+    "away_xga": null,
+    "injury_note": "无法确认",
+    "motivation_note": "无法确认",
+    "lineup_confirmed": false,
+    "official_data_confirmed": false,
+    "odds_complete": false,
+    "odds_movement_note": null,
+    "data_source": "手动录入示例",
+    "fetch_status": "手动录入",
+    "missing_fields": [
+      "spf_odds",
+      "handicap",
+      "rqspf_odds"
+    ],
+    "odds_conflict_note": "无",
+    "lineup_note": "无法确认",
+    "weather_note": "无法确认"
+  }
+]

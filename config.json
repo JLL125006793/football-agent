@@ -1,0 +1,9 @@
+{
+  "daily_budget": 200,
+  "target_odds_min": 3.5,
+  "target_odds_max": 4.2,
+  "clean_logic_odds_max": 4.8,
+  "max_goals": 8,
+  "min_matches_for_recommendation": 6,
+  "raw_data_dir": "data/raw"
+}
